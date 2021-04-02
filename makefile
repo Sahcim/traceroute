@@ -1,10 +1,7 @@
 CC = gcc
-CFLAGS = -Wextra -Wall
+CFLAGS = -std=gnu99 -Wextra -Wall
 DEPS = sender.h
 OBJ = main.o sender.o
-
-%.o: %.c $(DEPS)
-		$(CC) -c -o $@ $< $(CFLAGS)
 
 traceroute: $(OBJ)
 		$(CC) -o $@ $^ $(CFLAGS)

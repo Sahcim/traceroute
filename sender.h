@@ -3,7 +3,9 @@
 
 #include <stdlib.h>
 #include <assert.h>
+#include <arpa/inet.h>
+#include <netinet/ip_icmp.h>
 
-u_int16_t computer_icmp_checksum(const void *buff, int length);
+int send_icmp_packets(int sockdf, struct sockaddr_in recipient, int pid, int start_seq_num, int num_of_packets);
 
 #endif
