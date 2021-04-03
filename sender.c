@@ -20,7 +20,6 @@ int send_icmp_packets(int sockfd, struct sockaddr_in recipient, int pid, int sta
 	header.icmp_code = 0;
 	header.icmp_id = pid;
 	header.icmp_cksum = 0;
-
 	// Sending (num_of_packets) packets with distinct icd_seq numbers
 	for (int i = 0; i<num_of_packets; i++){
 		header.icmp_seq = start_seq_num+i;
