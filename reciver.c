@@ -65,14 +65,12 @@ int recive_icmp_packets(int sockfd, int pid, int seq_num, int num_of_packets, in
 						ip_header = (struct ip *)((uint8_t *)icmp_header + sizeof(struct icmphdr));
 						icmp_header = (struct icmp *)((uint8_t *)ip_header + ip_header->ip_hl * 4);
 					}
-					else
-					{
-						is_echo = true;
-					}
 
 					if (seq_num == icmp_header->icmp_seq &&
 						icmp_header->icmp_id == pid)
 					{
+						if (icmp_header->icmp_type == ICMP_ECHOREPLY)
+							is_echo = true;
 						inet_ntop(AF_INET, &sender.sin_addr, ip[(*responses)], sizeof(char[16]));
 
 						gettimeofday(&timestamps[(*responses)], 0);
