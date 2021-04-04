@@ -15,7 +15,7 @@ u_int16_t computer_icmp_checksum(const void *buff, int length)
 	return (u_int16_t)(~(sum + (sum >> 16)));
 }
 
-int send_icmp_packets(int sockfd, struct sockaddr_in recipient, int pid, int start_seq_num, int num_of_packets)
+int send_icmp_packets(int sockfd, struct sockaddr_in recipient, int pid, int seq_num, int num_of_packets)
 {
 
 	// Setting up header
@@ -28,7 +28,7 @@ int send_icmp_packets(int sockfd, struct sockaddr_in recipient, int pid, int sta
 	// Sending (num_of_packets) packets with distinct icd_seq numbers
 	for (int i = 0; i < num_of_packets; i++)
 	{
-		header.icmp_seq = start_seq_num + i;
+		header.icmp_seq = seq_num;
 		header.icmp_cksum = computer_icmp_checksum((u_int16_t *)&header, sizeof(header));
 		if (sendto(sockfd, &header, sizeof(header), 0, (struct sockaddr *)&recipient, sizeof(recipient)) < 0)
 		{

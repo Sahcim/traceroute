@@ -7,6 +7,6 @@
 #include <arpa/inet.h>
 #include <netinet/ip_icmp.h>
 
-int send_icmp_packets(int sockdf, struct sockaddr_in recipient, int pid, int start_seq_num, int num_of_packets);
+int send_icmp_packets(int sockdf, struct sockaddr_in recipient, int pid, int seq_num, int num_of_packets);
 
 #endif

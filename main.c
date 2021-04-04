@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <string.h>
+#include <errno.h>
 #include "sender.h"
 #include "reciver.h"
 
@@ -22,7 +23,6 @@ double avg_time(struct timeval timestamps[], struct timeval start_time, int resp
 
 void print_ips(int responses, char ip[][16])
 {
-	printf("IP address:");
 	char ip_to_print[16];
 	bool is_same;
 
@@ -31,7 +31,7 @@ void print_ips(int responses, char ip[][16])
 		strcpy(ip_to_print, ip[i]);
 		is_same = true;
 
-		for (int j; j < i; j++)
+		for (int j = 0; j < i; j++)
 		{
 			if (strcmp(ip_to_print, ip[i]) == 0)
 			{
@@ -48,12 +48,15 @@ void print_stats(int responses, struct timeval start_time, struct timeval timest
 {
 	if (responses == 0)
 	{
-		printf("???\n");
+		printf("* * * \n");
 		return;
 	}
-
-	printf("Avg time: %.0f ms ", avg_time(timestamps, start_time, responses));
 	print_ips(responses, ip);
+	if (responses == 3)
+		printf(" %.0f ms ", avg_time(timestamps, start_time, responses));
+	else
+		printf(" ???");
+
 	printf("\n");
 }
 
@@ -110,7 +113,7 @@ int main(int argc, char *argv[])
 		ttl = i;
 		setsockopt(sockfd, IPPROTO_IP, IP_TTL, &ttl, sizeof(int));
 		// reseting seq_number, num_of_responses, start_time
-		seq_random = rand() % 10000;
+		seq_random = i;
 		responses = 0;
 		gettimeofday(&start_time, 0);
 
@@ -129,7 +132,7 @@ int main(int argc, char *argv[])
 			return EXIT_FAILURE;
 		}
 		//printing stats
-		printf("TTL: %d ", ttl);
+		printf("%d.", ttl);
 		print_stats(responses, start_time, timestamps, ip);
 
 		if (recive_status == 2)
