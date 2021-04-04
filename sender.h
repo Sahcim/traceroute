@@ -1,3 +1,4 @@
+// Michał Zobniów 307275
 #ifndef SENDER
 #define SENDER
 

@@ -1,3 +1,4 @@
+// Michał Zobniów 307275
 #ifndef RECIVER
 #define RECIVER
 

@@ -1,3 +1,4 @@
+// Michał Zobniów 307275
 #include "reciver.h"
 
 int recive_icmp_packets(int sockfd, int pid, int seq_start, int num_of_packets, int wait_time_in_seconds,

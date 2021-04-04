@@ -1,3 +1,4 @@
+// Michał Zobniów 307275
 #include "sender.h"
 #include <stdio.h>
 
