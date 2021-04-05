@@ -54,6 +54,8 @@ int recive_icmp_packets(int sockfd, int pid, int seq_num, int num_of_packets, in
 					}
 					return -1;
 				}
+				if ((*responses) >= num_of_packets)
+					break;
 
 				ip_header = (struct ip *)buffer;
 				icmp_header = (struct icmp *)(buffer + 4 * ip_header->ip_hl);
