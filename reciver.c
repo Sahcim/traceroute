@@ -83,6 +83,8 @@ int recive_icmp_packets(int sockfd, int pid, int seq_num, int num_of_packets, in
 			seconds = end.tv_sec - begin.tv_sec;
 			microseconds = end.tv_usec - begin.tv_usec;
 			elapsed = seconds + microseconds * 1e-6;
+			tv.tv_sec = wait_time_in_seconds - seconds;
+			tv.tv_usec = 1e6 - microseconds;
 		}
 	}
 
