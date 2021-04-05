@@ -54,6 +54,8 @@ int recive_icmp_packets(int sockfd, int pid, int seq_num, int num_of_packets, in
 					}
 					return -1;
 				}
+				if ((*responses) >= num_of_packets)
+					break;
 
 				ip_header = (struct ip *)buffer;
 				icmp_header = (struct icmp *)(buffer + 4 * ip_header->ip_hl);
@@ -71,13 +73,14 @@ int recive_icmp_packets(int sockfd, int pid, int seq_num, int num_of_packets, in
 					{
 						if (icmp_header->icmp_type == ICMP_ECHOREPLY)
 							is_echo = true;
-						inet_ntop(AF_INET, &sender.sin_addr, ip[(*responses)], sizeof(char[16]));
 
+						inet_ntop(AF_INET, &sender.sin_addr, ip[(*responses)], sizeof(char[16]));
 						gettimeofday(&timestamps[(*responses)], 0);
 						(*responses)++;
 					}
 				}
 			}
+			// time update
 			gettimeofday(&end, 0);
 			seconds = end.tv_sec - begin.tv_sec;
 			microseconds = end.tv_usec - begin.tv_usec;

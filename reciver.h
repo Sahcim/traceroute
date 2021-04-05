@@ -14,5 +14,5 @@
 
 int recive_icmp_packets(int sockfd, int pid, int seq_num, int num_of_packets, int wait_time_in_seconds,
                         int *responses, char ip[][16], struct timeval timestamps[]);
-
+double time_diff_in_seconds(struct timeval t1, struct timeval t2);
 #endif
