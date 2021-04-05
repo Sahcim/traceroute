@@ -48,7 +48,7 @@ void print_stats(int responses, struct timeval start_time, struct timeval timest
 {
 	if (responses == 0)
 	{
-		printf("* * * \n");
+		printf(" * * * \n");
 		return;
 	}
 	print_ips(responses, ip);
